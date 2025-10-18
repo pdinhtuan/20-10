@@ -11,6 +11,7 @@ How to use:
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
+ 
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Tặng Người Xứng Đáng  - 20/10</title>
   <style>
@@ -42,10 +43,27 @@ How to use:
     body{background: radial-gradient(circle at 10% 10%, #fff0f6 0%, var(--bg) 40%), linear-gradient(180deg,#fff 0%, #fff9fb 100%);
          display:flex;align-items:center;justify-content:center;overflow:hidden}
 
-    .card{
-      width:920px;max-width:95vw;min-height:560px;border-radius:18px;padding:36px;box-shadow:0 8px 30px rgba(99,40,90,0.12);
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,250,252,0.85));position:relative;overflow:hidden;
-      display:flex;gap:24px;align-items:center}
+    .card {
+  width: 920px;
+  max-width: 95vw;
+  min-height: 560px;
+  max-height: 95vh; /* ✅ Giới hạn cao bằng màn hình */
+  border-radius: 18px;
+  padding: 36px;
+  box-shadow: 0 8px 30px rgba(99,40,90,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,250,252,0.85));
+  position: relative;
+
+  overflow-y: auto; /* ✅ Cho phép cuộn nội dung khi tràn */
+  -webkit-overflow-scrolling: touch; /* ✅ Cuộn mượt trên iPhone */
+
+  display: flex;
+  flex-wrap: wrap;  /* ✅ Khi màn nhỏ, tự xuống hàng */
+  gap: 24px;
+  align-items: center;
+  justify-content: center; /* ✅ Căn giữa nội dung */
+}
+
 
     /* left artwork */
     .left{
@@ -97,6 +115,47 @@ How to use:
 
     /* responsive */
     @media (max-width:720px){.card{flex-direction:column;padding:20px}.left{width:100%}.right{width:100%}}
+   /* 🌸 Điều chỉnh giao diện cho điện thoại */
+@media (max-width: 720px) {
+  .card {
+    flex-direction: column;   /* Chuyển sang xếp dọc */
+    gap: 12px;
+    padding: 18px;
+    max-height: none;         /* Cho phép cao hơn màn hình */
+    overflow-y: visible;      /* Nếu muốn toàn bộ hiển thị */
+  }
+
+  .left, .right {
+    width: 100%;              /* Mỗi phần chiếm full chiều ngang */
+    text-align: center;
+  }
+
+  .heart {
+    width: 140px;             /* Trái tim nhỏ hơn */
+    height: 140px;
+    transform: none;          /* Bỏ xoay */
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .message {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  #playMusicBtn {
+    font-size: 14px;
+    padding: 8px 18px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -245,3 +304,4 @@ playBtn.addEventListener('click', () => {
   </script>
 </body>
 </html>
+
