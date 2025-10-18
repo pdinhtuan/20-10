@@ -1,0 +1,247 @@
+ 
+ <!--
+20-10 Web Mini Template
+How to use:
+- Save this file as `20-10-card.html` and open in a browser.
+- Edit the variables in the <script> section near the top: `toName`, `fromName`, `lines`, and optionally `musicSrc`.
+- To add a background music file, place `music.mp3` in the same folder and set `musicSrc = 'music.mp3'`.
+-->
+
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tặng Người Xứng Đáng  - 20/10</title>
+  <style>
+    .petal {
+  position: fixed;
+  top: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+  user-select: none;
+}
+
+    .heart-icon {
+  font-size: 150px;
+  animation: pulse 2s infinite ease-in-out;
+  text-shadow: 0 0 20px rgba(255, 105, 150, 0.6);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+    :root{
+      --bg:#ea6fad;
+      --accent:#ff6fa3;
+      --text:#3b2b2b;
+    }
+    html,body{height:100%;margin:0;font-family: 'Segoe UI', Roboto, system-ui, -apple-system;}
+    body{background: radial-gradient(circle at 10% 10%, #fff0f6 0%, var(--bg) 40%), linear-gradient(180deg,#fff 0%, #fff9fb 100%);
+         display:flex;align-items:center;justify-content:center;overflow:hidden}
+
+    .card{
+      width:920px;max-width:95vw;min-height:560px;border-radius:18px;padding:36px;box-shadow:0 8px 30px rgba(99,40,90,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,250,252,0.85));position:relative;overflow:hidden;
+      display:flex;gap:24px;align-items:center}
+
+    /* left artwork */
+    .left{
+      width:45%;min-width:280px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+    .heart{
+      width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #ffd3e6 0%, #ff7aa3 40%, #ff4d86 100%);
+      display:flex;align-items:center;justify-content:center;box-shadow: 0 12px 40px rgba(255,105,150,0.15);transform:rotate(-12deg)}
+    .heart:after{content:"";width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.12);display:block}
+    .flower-emoji{font-size:48px;margin-top:6px}
+
+    /* right content */
+    .right{flex:1;color:var(--text);padding:12px 8px}
+    h1{margin:0;font-size:28px;color:var(--accent);letter-spacing:0.6px}
+    h2{margin:6px 0 16px 0;font-size:18px;color:#6b4756}
+    .message{font-size:20px;line-height:1.6;min-height:140px}
+    .names{margin-top:18px;font-size:16px;color:#5a414a}
+
+
+    /* typing caret */
+    .typing{font-family: 'Courier New', monospace;white-space:pre-wrap}
+    .caret{display:inline-block;width:10px;background:var(--accent);margin-left:6px;height:22px;vertical-align:bottom;animation:blink .8s steps(2) infinite}
+    @keyframes blink{50%{opacity:0}}
+#playMusicBtn {
+  margin-top: 16px;
+  background: linear-gradient(135deg, #ff7aa3, #ff4d86);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 22px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 105, 150, 0.4);
+  transition: transform 0.2s ease, background 0.3s;
+}
+#playMusicBtn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff4d86, #ff007a);
+}
+
+
+    /* falling petals */
+    .petal{
+      position:fixed;left:50%;top:-10vh;pointer-events:none;font-size:22px;opacity:0.95;
+      transform-origin:center;will-change:transform,top,opacity}
+
+    /* small controls */
+    .controls{position:absolute;right:12px;bottom:12px;font-size:13px;color:#6b4756}
+    .btn{background:transparent;border:1px solid rgba(107,71,86,0.1);padding:6px 10px;border-radius:10px;margin-left:8px;cursor:pointer}
+
+    /* responsive */
+    @media (max-width:720px){.card{flex-direction:column;padding:20px}.left{width:100%}.right{width:100%}}
+  </style>
+</head>
+<body>
+ 
+
+  <div class="card">
+    <div class="left">
+      <div class="heart-icon">💗</div>
+    <button id="playMusicBtn">🎵 Bấm Vào Đây Nha</button>
+ <audio id="bg-music" loop>
+ <source src="music.mp3" type="audio/mp3">
+
+
+      <div style="text-align:center;color:#8b5a6d;font-size:14px;margin-top:8px">Cảm ơn chị đã bên cạnh em bao lâu nay,hi vọng mọi thứ tốt đẹp sẽ tới với chị</div>
+    </div>
+
+    <div class="right">
+      <h1>Tặng chị nhân ngày 20/10</h1>
+      <h2 class="subtitle">Một chút ngọt ngào dành cho người đặc biệt</h2>
+
+      <div class="message">
+        <div id="typed" class="typing"></div><span class="caret" id="caret"></span>
+      </div>
+
+      <div class="names" id="names">Từ Đình Tuân — Tặng chị</div>
+
+      
+
+    <!-- audio element; replace src with 'music.mp3' or any mp3 file in same folder -->
+    <audio id="bgMusic" loop preload="auto">
+      <!-- To add music: put a music file named music.mp3 in the same folder and set musicSrc = 'music.mp3' in the script -->
+    </audio>
+  </div>
+
+  <script>
+    /***** EDIT THESE VARIABLES TO CUSTOMIZE *****/
+    const toName = 'Chị yêu';       // change recipient name
+    const fromName = 'Đình Tuân';        // change sender name
+    const lines = [
+      'Chúc mừng Ngày Phụ Nữ Việt Nam 20/10!',
+      'Cảm ơn Chị vì đã luôn bên em, vì nụ cười và những tháng ngày ấm áp.',
+      'Mong Chị luôn hạnh phúc, xinh đẹp và được yêu thương mỗi ngày,hãy sống thật tốt khi không còn em bên cạnh,hãy luôn vui vẻ và đừng day dứt bất cứ điều gì về em bởi vì e nợ chị nhiều, chúng ta sẽ thực sự hạnh phúc với khoảng thời gian còn lại nhé.',
+      'Yêu Chị nhiều ❤️'
+    ];
+    // Put a file `music.mp3` in the same folder and set musicSrc = 'music.mp3' (or set any remote URL if you prefer)
+    const musicSrc = 'music.mp3'; // '' to disable by default
+    /********************************************/
+
+    // apply names
+    document.getElementById('names').textContent = `Tặng ${toName} — Từ ${fromName}`;
+
+    // typing effect
+    const typedEl = document.getElementById('typed');
+    const caretEl = document.getElementById('caret');
+    let lineIndex = 0, charIndex = 0;
+    let fullText = lines.join('\n\n');
+    let typingSpeed = 40; // ms per character
+
+    function typeStep(){
+      if(charIndex <= fullText.length){
+        typedEl.textContent = fullText.slice(0, charIndex);
+        charIndex++;
+        // scroll into view if overflow
+        typedEl.parentElement.scrollTop = typedEl.parentElement.scrollHeight;
+      } else {
+        // typing finished; blink caret slower
+        caretEl.style.animation = 'blink 1s steps(2) infinite';
+        return;
+      }
+      setTimeout(typeStep, typingSpeed);
+    }
+
+    // start typing after small delay
+setTimeout(typeStep, 700);
+
+// falling petals generator
+const petalEmojis = ['🌸','🌺','🌷','💮','🌼'];
+
+function spawnPetal() {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+
+  const size = Math.random() * 30 + 20; // 16–36px
+  p.style.fontSize = size + 'px';
+
+  const startLeft = Math.random() * 100; // vw
+  p.style.left = startLeft + 'vw';
+
+  const duration = Math.random() * 8 + 12; // 12–20s (chậm, bay tự nhiên)
+  const rotateStart = Math.random() * 360;
+  document.body.appendChild(p);
+
+  const start = performance.now();
+  const startTop = -10; // vh
+  const endTop = 110; // vh
+  const swayAmp = Math.random() * 6 + 4; // độ lệch trái phải nhẹ
+  const swayFreq = Math.random() * 1.5 + 0.8; // tần suất lượn gió
+
+  function animate(now) {
+    const t = (now - start) / (duration * 1000);
+    if (t >= 1) {
+      p.remove();
+      return;
+    }
+
+    // vị trí dọc (rơi)
+    const top = startTop + (endTop - startTop) * t;
+
+    // vị trí ngang (lượn nhẹ)
+    const sway = Math.sin(t * Math.PI * 2 * swayFreq) * swayAmp;
+
+    // áp dụng vị trí + xoay
+    p.style.top = top + 'vh';
+    p.style.left = `calc(${startLeft}vw + ${sway}vw)`;
+    p.style.opacity = 1 - t * 0.7;
+    p.style.transform = `rotate(${rotateStart + t * 720}deg)`;
+
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+}
+
+// spawn petals periodically
+setInterval(spawnPetal, 900); // ít hơn 1 chút → nhẹ hơn
+// initial burst
+for (let i = 0; i < 6; i++) setTimeout(spawnPetal, i * 200);
+
+
+const playBtn = document.getElementById('playMusicBtn');
+const bgMusic = document.getElementById('bg-music');
+let isPlaying = false;
+
+playBtn.addEventListener('click', () => {
+  if (!isPlaying) {
+    bgMusic.play();
+    playBtn.textContent = '⏸️ Cảm ơn chị nha';
+  } else {
+    bgMusic.pause();
+    playBtn.textContent = '🎵 Chị bấm vào đây';
+  }
+  isPlaying = !isPlaying;
+});
+
+   
+  </script>
+</body>
+</html>
